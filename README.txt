@@ -1,0 +1,108 @@
+= yelp
+
+A Ruby object-oriented interface to the local business content available
+on Yelp at http://www.yelp.com.  Functionality is provided to perform
+all searches available via the developer API including:
+
+* search for business reviews by geo-bounding-box, geo-point, or address/location.
+* search for a business review by business phone number.
+* search for a neighborhood by geo-point or address/location.
+
+More detailed information on the underlying Yelp API, error response codes, and so forth is available at http://www.yelp.com/developers/getting_started.
+
+The RubyForge project is hosted at http://rubyforge.org/projects/yelp.  This documentation is available at http://yelp.rubyforge.org.
+
+== About
+
+Everybody loves Yelp! For those seeking burritos in the Mission District of
+San Francisco, it's easy to feel awash in a sea of taquerias with little to go
+on for decision-making other than whether the rice has peas in it (generally a
+negatory data point) or how long the line happens to be around lunchtime.
+
+Worry no longer! Yelp is here.
+
+Why should you use this library rather than writing directly to their API, or rolling your own?  A few reasons that come to mind:
+
+* we've done a variety of mini-legwork from which you, Yelp and our fellow netizens will benefit, such as making sure we inform the Yelp server that we support gzipped data over the wire to save on bandwidth.
+* we have rudimentary tests, whereas your implementation doesn't (since you haven't even written it yet).
+* we return responses (by default, configurable) as JSON data converted into a Ruby hash and appropriate data types where applicable.
+* (subjective but we know we're right) -- we think our API is a nicer layer for Ruby developers to work with than the bare-bones REST API that Yelp provides.
+
+== Requirements
+
+You must have a Yelp Web Service ID (YWSID) available at http://www.yelp.com/developers/getting_started/api_access.
+
+You must conform to the Yelp Branding Requirements when making use of content
+retrieved via their API, documented at http://www.yelp.com/developers/getting_started/api_branding.
+
+For tests to execute successfully you must have the YWSID set in your
+environment via (shell-dependent, bash example provided):
+
+    % export YWSID='YOUR_ID_HERE'
+
+== Installing
+
+We recommend installing <tt>yelp</tt> via rubygems[http://rubyforge.org/projects/rubygems/] (see also http://www.rubygems.org).
+
+Once you have +rubygems+ installed on your system, you can easily install the <tt>yelp</tt> gem by executing:
+
+% gem install --include-dependencies yelp
+
+== Usage
+
+Instantiate a Yelp::Client and use its +search+ method to make requests of
+the Yelp server.
+
+The available search request types are:
+
+* Yelp::Review::Request::BoundingBox
+* Yelp::Review::Request::GeoPoint
+* Yelp::Review::Request::Location
+* Yelp::Phone::Request::Number
+* Yelp::Neighborhood::Request::GeoPoint
+* Yelp::Neighborhood::Request::Location
+
+By default, response content is formatted as a Ruby hash converted from Yelp's
+source JSON response content. Alternate response formats (including the
+original pure JSON) can be specified on request record construction via the
+Yelp::Request +response_format+ parameter, available in all request record
+types.
+
+A few examples:
+
+    # construct a client instance
+    client = Yelp::Client.new
+
+    # perform an address/location-based search for cream puffs nearby
+    request = Yelp::Review::Request::Location.new(
+                :address => '650 Mission St',
+                :city => 'San Francisco',
+                :state => 'CA',
+                :radius => 2,
+                :term => 'cream puffs',
+                :yws_id => 'YOUR_YWSID_HERE')
+    response = client.search(request)
+
+    # perform a neighborhood name lookup for a specific geo-location point
+    request = Yelp::Neighborhood::Request::GeoPoint.new(
+                :latitude => 37.782093,
+                :longitude => -122.483230,
+                :yws_id => 'YOUR_YWSID_HERE')
+    response = client.search(request)
+
+    # perform a business review search based on a business phone number
+    request = Yelp::Phone::Request::Number.new(
+                :phone_number => '4155551212',
+                :yws_id => 'YOUR_YWSID_HERE')
+    response = client.search(request)
+
+If you want to convert some addresses to latitude/longitude, or vice
+versa, for testing or what have you -- try http://stevemorse.org/jcal/latlon.php.
+
+== License
+
+This library is provided via the GNU LGPL license at http://www.gnu.org/licenses/lgpl.html.
+
+== Authors
+
+Copyright 2007, Walter Korman <shaper@wgks.org>, http://lemurware.blogspot.com

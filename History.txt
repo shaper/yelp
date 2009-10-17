@@ -1,0 +1,38 @@
+* [shaper] updated Rakefile to reflect latest hoe usage.
+
+* [shaper] fixed test neighborhood search to reflect add'l info passed
+  along in yelp response.
+
+* [shaper] fixed test json validation to reflect new version of 1.1.1.
+
+* [shaper] fixed neighborhood test to suit new www.yelp.com return
+  url.
+
+== 0.2.1 / 2007-11-24
+
+* [shaper] fixed extra dependencies specified in Rakefile to allow for proper
+  gem installation.
+
+== 0.2.0 / 2007-11-24
+
+* [shaper] fixed validation of neighborhood yelp search url to reflect
+  yelp-side url fix removing '/' from immediately following '?'.
+
+* [shaper] fixed json result validation to accept new format v1.1 specifier.
+
+* [shaper] Incorporated category result narrowing for business review search,
+  thanks to Jerry Cheung for patch.
+
+* Updated neighborhood tests to reflect additional information in the yelp
+  response.
+
+== 0.1.1 / 2007-08-06
+
+* Moved to Rubyforge now that the yelp project exists.
+
+* Fixed Yelp::Request documentation to note the correct default response
+  format as Yelp::ResponseFormat::JSON_TO_RUBY.
+
+== 0.1.0 / 2007-08-05
+
+* Initial release.
