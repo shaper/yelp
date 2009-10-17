@@ -1,7 +1,7 @@
-History.txt
+CHANGELOG.rdoc
 LICENSE.txt
 Manifest.txt
-README.txt
+README.rdoc
 Rakefile
 TODO.txt
 lib/yelp.rb

@@ -12,6 +12,8 @@ More detailed information on the underlying Yelp API, error response codes, and 
 
 The RubyForge project is hosted at http://rubyforge.org/projects/yelp.  This documentation is available at http://yelp.rubyforge.org.
 
+The latest source code is at http://github.com/shaper/yelp.
+
 == About
 
 Everybody loves Yelp! For those seeking burritos in the Mission District of
@@ -42,11 +44,13 @@ environment via (shell-dependent, bash example provided):
 
 == Installing
 
-We recommend installing <tt>yelp</tt> via rubygems[http://rubyforge.org/projects/rubygems/] (see also http://www.rubygems.org).
+First install +rubygems+ if you don't already have it via:
 
-Once you have +rubygems+ installed on your system, you can easily install the <tt>yelp</tt> gem by executing:
+http://rubyforge.org/projects/rubygems/
 
-% gem install --include-dependencies yelp
+Then you can easily install the +yelp+ gem by executing:
+
+% gem install yelp
 
 == Usage
 
@@ -105,4 +109,4 @@ This library is provided via the GNU LGPL license at http://www.gnu.org/licenses
 
 == Authors
 
-Copyright 2007, Walter Korman <shaper@wgks.org>, http://lemurware.blogspot.com
+Copyright 2007 - 2009, Walter Korman <shaper@fatgoose.com>, http://lemurware.blogspot.com

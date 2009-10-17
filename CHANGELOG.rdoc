@@ -1,3 +1,5 @@
+* [shaper] updated README to reflect the latest reality.
+
 * [shaper] updated Rakefile to reflect latest hoe usage.
 
 * [shaper] fixed test neighborhood search to reflect add'l info passed

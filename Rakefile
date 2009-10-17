@@ -12,6 +12,6 @@ Hoe.spec('yelp') do |p|
   self.summary = 'An object-oriented interface to the Yelp Developer API.'
   self.description = 'An object-oriented interface to the Yelp Developer API.'
   self.url = 'http://rubyforge.org/projects/yelp'
-  self.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
+  self.changes = p.paragraphs_of('CHANGELOG.rdoc', 0..1).join("\n\n")
   self.remote_rdoc_dir = '' # Release to root
 end
