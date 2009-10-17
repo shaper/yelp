@@ -44,13 +44,11 @@ environment via (shell-dependent, bash example provided):
 
 == Installing
 
-First install +rubygems+ if you don't already have it via:
+Install +rubygems+ if you don't already have it.  See http://rubyforge.org/projects/rubygems/.
 
-http://rubyforge.org/projects/rubygems/
+Then install the +yelp+ gem by executing:
 
-Then you can easily install the +yelp+ gem by executing:
-
-% gem install yelp
+ % gem install yelp
 
 == Usage
 
