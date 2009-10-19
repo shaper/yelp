@@ -21,4 +21,5 @@ EDOC
   self.remote_rdoc_dir = '' # Release to root
   self.readme_file = 'README.rdoc'
   self.history_file = 'CHANGELOG.rdoc'
+  self.extra_rdoc_files = [ 'CHANGELOG.rdoc', 'README.rdoc' ]
 end
