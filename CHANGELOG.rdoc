@@ -1,3 +1,5 @@
+== YELP_20091019_1_0_0
+
 * [shaper] allow specifying multiple categories for review search by
   passing an array of the category names in the request.
 
