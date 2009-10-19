@@ -94,7 +94,9 @@ class Yelp
         params.each do |key, value|
           next if value.nil?
           url << '&' if (param_count > 0)
-          url << "#{key}=#{CGI.escape(params[key].to_s)}"
+          key_str = (params[key].kind_of?(Array)) ? 
+            params[key].map { |k| CGI.escape(k.to_s) }.join("+") : CGI.escape(params[key].to_s)
+          url << "#{CGI.escape(key.to_s)}=#{key_str}"
           param_count += 1
         end
         url

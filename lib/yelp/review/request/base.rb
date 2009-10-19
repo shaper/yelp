@@ -12,7 +12,8 @@ class Yelp
         # requested.
         attr_reader :term
 
-        # optionally narrow the results by a category
+        # optionally narrow the results by one or more categories.
+        # may be a single string value, or an Array of multiple values.
         attr_reader :category
 
         def base_url

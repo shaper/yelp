@@ -1,3 +1,9 @@
+* [shaper] allow specifying multiple categories for review search by
+  passing an array of the category names in the request.
+
+* [shaper] fix tests to gracefully alert user if YWSID is not set in
+  their environment.
+
 * [shaper] updated README to reflect the latest reality.
 
 * [shaper] updated Rakefile to reflect latest hoe usage.

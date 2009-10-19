@@ -1,6 +1,14 @@
 require 'pp'
 
 module YelpHelper
+  def create_client
+    @client = Yelp::Client.new
+    assert_not_nil(ENV['YWSID'], "Missing YWSID.  Obtain from http://www.yelp.com/developer and " +
+                   "set in your shell environment under 'YWSID'.")
+    @yws_id = ENV['YWSID']
+#    @client.debug = true
+  end
+
   def validate_json_response (response)
     assert_not_nil response
     assert_instance_of String, response

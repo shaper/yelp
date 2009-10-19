@@ -7,9 +7,7 @@ class TestPhoneSearch < Test::Unit::TestCase
   include YelpHelper
 
   def setup
-    @client = Yelp::Client.new
-    @yws_id = ENV['YWSID']
-#    @client.debug = true
+    create_client
   end
 
   GORDO_PHONE_NUMBER = '4155666011'

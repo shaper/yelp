@@ -7,9 +7,7 @@ class TestNeighborhoodSearch < Test::Unit::TestCase
   include YelpHelper
 
   def setup
-    @client = Yelp::Client.new
-    @yws_id = ENV['YWSID']
-#    @client.debug = true
+    create_client
   end
 
   GORDO_LAT = 37.782093

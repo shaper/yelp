@@ -7,9 +7,7 @@ class TestReviewSearch < Test::Unit::TestCase
   include YelpHelper
 
   def setup
-    @client = Yelp::Client.new
-    @yws_id = ENV['YWSID']
-#    @client.debug = true
+    create_client
   end
 
   def test_bounding_box
@@ -109,6 +107,51 @@ class TestReviewSearch < Test::Unit::TestCase
     request = basic_request(:compress_response => false)
     response = @client.search(request)
     validate_json_to_ruby_response(response)
+  end
+
+  def test_multiple_categories
+    # fetch results for only one category
+    params = {
+      :city => 'San Francisco',
+      :state => 'CA',
+      :yws_id => @yws_id,
+      :category => 'donuts'
+    }
+    request = Yelp::Review::Request::Location.new(params)
+    response = @client.search(request)
+
+    # make sure the overall request looks kosher
+    validate_json_to_ruby_response(response)
+
+    # make sure all businesses returned have at least the specified category
+    response['businesses'].each do |b|
+      cat_exists = b['categories'].find { |c| c['category_filter'] == 'donuts' }
+      assert_not_nil(cat_exists)
+    end
+
+    # now fetch for businesses with two categories
+    params[:category] = [ 'donuts', 'icecream' ]
+    request = Yelp::Review::Request::Location.new(params)
+    response = @client.search(request)
+
+    # make sure the overall request looks kosher
+    validate_json_to_ruby_response(response)
+
+    # make sure we have at least one of each specified category, and
+    # that each business has at least one
+    donut_count = 0
+    icecream_count = 0
+    response['businesses'].each do |b|
+      has_donut = b['categories'].find { |c| c['category_filter'] == 'donuts' }
+      has_icecream = b['categories'].find { |c| c['category_filter'] == 'icecream' }
+
+      donut_count += 1 if has_donut
+      icecream_count += 1 if has_icecream
+
+      assert(has_donut || has_icecream)
+    end
+
+    assert((donut_count > 0) && (icecream_count > 0))
   end
 
   protected

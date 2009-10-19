@@ -40,7 +40,7 @@ retrieved via their API, documented at http://www.yelp.com/developers/getting_st
 For tests to execute successfully you must have the YWSID set in your
 environment via (shell-dependent, bash example provided):
 
-    % export YWSID='YOUR_ID_HERE'
+ % export YWSID='YOUR_ID_HERE'
 
 == Installing
 
@@ -72,31 +72,39 @@ types.
 
 A few examples:
 
-    # construct a client instance
-    client = Yelp::Client.new
+ # construct a client instance
+ client = Yelp::Client.new
 
-    # perform an address/location-based search for cream puffs nearby
-    request = Yelp::Review::Request::Location.new(
-                :address => '650 Mission St',
-                :city => 'San Francisco',
-                :state => 'CA',
-                :radius => 2,
-                :term => 'cream puffs',
-                :yws_id => 'YOUR_YWSID_HERE')
-    response = client.search(request)
+ # perform an address/location-based search for cream puffs nearby
+ request = Yelp::Review::Request::Location.new(
+             :address => '650 Mission St',
+             :city => 'San Francisco',
+             :state => 'CA',
+             :radius => 2,
+             :term => 'cream puffs',
+             :yws_id => 'YOUR_YWSID_HERE')
+ response = client.search(request)
 
-    # perform a neighborhood name lookup for a specific geo-location point
-    request = Yelp::Neighborhood::Request::GeoPoint.new(
-                :latitude => 37.782093,
-                :longitude => -122.483230,
-                :yws_id => 'YOUR_YWSID_HERE')
-    response = client.search(request)
+ # perform a location-based category search for either ice cream or donut shops in SF
+ request = Yelp::Review::Request::Location.new(
+             :city => 'San Francisco',
+             :state => 'CA',
+             :category => [ 'donuts', 'icecream' ],
+             :yws_id => 'YOUR_YWSID_HERE')
+ response = client.search(request)
 
-    # perform a business review search based on a business phone number
-    request = Yelp::Phone::Request::Number.new(
-                :phone_number => '4155551212',
-                :yws_id => 'YOUR_YWSID_HERE')
-    response = client.search(request)
+ # perform a neighborhood name lookup for a specific geo-location point
+ request = Yelp::Neighborhood::Request::GeoPoint.new(
+             :latitude => 37.782093,
+             :longitude => -122.483230,
+             :yws_id => 'YOUR_YWSID_HERE')
+ response = client.search(request)
+
+ # perform a business review search based on a business phone number
+ request = Yelp::Phone::Request::Number.new(
+             :phone_number => '4155551212',
+             :yws_id => 'YOUR_YWSID_HERE')
+ response = client.search(request)
 
 If you want to convert some addresses to latitude/longitude, or vice
 versa, for testing or what have you -- try http://stevemorse.org/jcal/latlon.php.
