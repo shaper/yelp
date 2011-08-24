@@ -1,3 +1,70 @@
+== YELP_20110823_1_1_0
+
+* [naveed] New files added:
+	- Folders v1 and v2 added for different versions
+ 	- Moved all files except lib/client.rb, lib/record.rb, lib/response_format.rb to folder v1
+ 	- v2 files and folders (+):
+ 		+ business
+			+ request
+				id.rb
+		+ search
+			+ request
+				base.rb
+				bounding_box.rb
+				geo_point.rb
+				location.rb
+		request.rb	
+
+* [naveed] Modifications in existing files:
+ 	- lib/yelp.rb
+		> modified links to yelp v1 files
+		> added links to yelp v2 files
+		> updated version number of gem from 1.0.0 to 1.1.0
+ 	- lib/yelp/clinet.rb
+		> removed links to open-uri and zlib libraries (line 3 & 7)
+		> replaced line 68: source = open(url, http_params) with content = request.pull_results(url, http_params)
+		> removed line 71: moved to appropriate request.rb of api version
+		> wrapped lines 92-101 in an unless block to prevent execution when params == nil
+ 	- Placed all files in v1 folder inside 'module V1'
+ 	- Updated super class references to reflect module addition
+ 	- lib/yelp/request.rb
+		> added link to open-uri and zlib
+		> added function pull_results (line 49-52) that is called from client.rb to get search results
+		> moved case bodies to next line (37 & 38) and removed colons
+
+* [naveed] New file contents:
+ 	- lib/yelp/v2/request.rb (essentially same as v1/request.rb with support for oauth instead of open_uri )
+		> :yws_id replaced with :consumer_key, :consumer_secret, :token and :token_secret
+		> added function pull_results (line 49-52) that is called from client.rb to get search results using OAuth
+	- lib/yelp/v2/business/request/id.rb
+		> class using yelp's business id to retrieve business details
+ 	- lib/yelp/v2/search/request/base.rb
+		> class specifying general and local params to search for business
+ 	- lib/yelp/v2/search/request/bounding_box.rb
+		> class specifying geographical bounding box to search for businesses in
+ 	- lib/yelp/v2/search/request/geo_point.rb
+		> class specifying geographical coordinate to search for businesses in
+ 	- lib/yelp/v2/search/request/location.rb
+		> class specifying address to search for business
+
+* [naveed] changes to existing tests
+ 	- test/yelp_helper.rb
+		> added constants for version numbers for running tests
+		> modified create_client function to check for different keys for different api versions
+		> modified validate_json_to_ruby_response function to handle different api versions
+		> commented out YELP_BIZ_ID_LENGTH = 22
+		> modified assert business['id'] == YELP_BIZ_ID_LENGTH to check for length > 0
+ 	- test/test_neighborhood.rb
+		> updated calls to api functions
+ 	- test/test_phone_search.rb
+		> updated calls to api functions
+ 	- test/test_review_search.rb
+		> updated calls to api functions
+
+* [naveed] new V2 Test Files
+ 	- test/test_business_retrieval.rb
+ 	- test/test_business_search.rb
+
 == YELP_20091019_1_0_0
 
 * [shaper] allow specifying multiple categories for review search by
