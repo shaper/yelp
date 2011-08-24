@@ -1,10 +1,8 @@
 require 'cgi'
 require 'logger'
-require 'open-uri'
 require 'rubygems'
 require 'json'
 require 'yaml'
-require 'zlib'
 
 class Yelp
   # Provides access to the Yelp search facilities as documented at:
@@ -14,7 +12,7 @@ class Yelp
   # Example usage:
   #
   #    client = Yelp::Client.new
-  #    request = Yelp::Review::Request::Location.new(
+  #    request = Yelp::V1::Review::Request::Location.new(
   #                 :address => '650 Mission St',
   #                 :city => 'San Francisco',
   #                 :state => 'CA',
@@ -63,12 +61,12 @@ class Yelp
       debug_msg "submitting search [url=#{url}, request=#{request.to_yaml}]."
 
       # submit the http request for the results
-      http_params = { 'User-Agent' => @agent }
-      http_params['Accept-Encoding'] = 'gzip,deflate' if request.compress_response?
-      source = open(url, http_params)
+	    # http_request_params not used in v2 as OAuth (implemented in v2) only takes response params
+	    http_params = { 'User-Agent' => @agent }
+	    http_params['Accept-Encoding'] = 'gzip,deflate' if request.compress_response?
+	    content = request.pull_results(url, http_params)
 
       # read the response content
-      content = (request.compress_response?) ? Zlib::GzipReader.new(source).read : source.read
       debug_msg((request.response_format.serialized?) ? "received response [content_length=#{content.length}]." : "received response [content_length=#{content.length}, content=#{content}].")
 
       # format the output as specified in the request
@@ -89,16 +87,18 @@ class Yelp
 
       def build_url (base_url, params)
         url = base_url.clone
-        url << '?'
-        param_count = 0
-        params.each do |key, value|
-          next if value.nil?
-          url << '&' if (param_count > 0)
-          key_str = (params[key].kind_of?(Array)) ? 
-            params[key].map { |k| CGI.escape(k.to_s) }.join("+") : CGI.escape(params[key].to_s)
-          url << "#{CGI.escape(key.to_s)}=#{key_str}"
-          param_count += 1
-        end
+		    unless params.nil?
+			    url << '?'
+			    param_count = 0
+			    params.each do |key, value|
+			      next if value.nil?
+			      url << '&' if (param_count > 0)
+			      key_str = (params[key].kind_of?(Array)) ? 
+				    params[key].map { |k| CGI.escape(k.to_s) }.join("+") : CGI.escape(params[key].to_s)
+			      url << "#{CGI.escape(key.to_s)}=#{key_str}"
+			      param_count += 1
+			    end
+		    end
         url
       end
   end

@@ -1,4 +1,13 @@
-= yelp
+This is an expansion of the yelp api ruby gem written by Walter Korman. The gem has been extended to support version 2 of the yelp api. V2 supports business details retrieval via yelp id as well as searches for businesses using geo-point, bounding box or address/location. It also uses OAuth for authorization of requests.
+
+NOTE: Use of this code will break legacy code. You need to update all existing references to Yelp::Request::.. with Yelp::V1::Request::... Check out sample usage section for more information.
+
+The source for the original gem can be found here: http://github.com/shaper/yelp
+Following is the updated extract of the readme file. 
+
+--------------------------------------------------------------------------------
+
+== yelp
 
 A Ruby object-oriented interface to the local business content available
 on Yelp at http://www.yelp.com.  Functionality is provided to perform
@@ -7,6 +16,8 @@ all searches available via the developer API including:
 * search for business reviews by geo-bounding-box, geo-point, or address/location.
 * search for a business review by business phone number.
 * search for a neighborhood by geo-point or address/location.
+* search for business details by geo-bounding-box, geo-point, or address/location.
+* retrieval of business details by specifying yelp id of business
 
 More detailed information on the underlying Yelp API, error response codes, and so forth is available at http://www.yelp.com/developers/getting_started.
 
@@ -32,17 +43,25 @@ Why should you use this library rather than writing directly to their API, or ro
 
 == Requirements
 
-You must have a Yelp Web Service ID (YWSID) available at http://www.yelp.com/developers/getting_started/api_access.
+You must have a Yelp Web Service ID (YWSID) if you're using v1 of the api or Consumer Key, Consumer Secret, Token and a Token Secret for version 2. These are available at http://www.yelp.com/developers/getting_started/api_access.
 
 You must conform to the Yelp Branding Requirements when making use of content
 retrieved via their API, documented at http://www.yelp.com/developers/getting_started/api_branding.
 
-For tests to execute successfully you must have the YWSID set in your
-environment via (shell-dependent, bash example provided):
+For tests to execute successfully you must have the YWSID (for v1) or CONSUMER_KEY, CONSUMER_SECRET, TOKEN and TOKEN_SECRET(for v2) set in your environment via (shell-dependent, bash example provided):
 
  % export YWSID='YOUR_ID_HERE'
 
+or
+
+ % export CONSUMER_KEY='YOUR_CONSUMER_KEY_HERE'
+ % export CONSUMER_SECRET='YOUR_CONSUMER_SECRET_HERE'
+ % export TOKEN='YOUR_TOKEN_HERE'
+ % export TOKEN_SECRET='YOUR_TOKEN_SECRET_HERE'
+
 == Installing
+
+NOTE: At the moment, this source (and support for yelp api v2) has not been incorporated into the original gem. You can install the original gem following the instructions below
 
 Install +rubygems+ if you don't already have it.  See http://rubyforge.org/projects/rubygems/.
 
@@ -57,17 +76,21 @@ the Yelp server.
 
 The available search request types are:
 
-* Yelp::Review::Request::BoundingBox
-* Yelp::Review::Request::GeoPoint
-* Yelp::Review::Request::Location
-* Yelp::Phone::Request::Number
-* Yelp::Neighborhood::Request::GeoPoint
-* Yelp::Neighborhood::Request::Location
+* Yelp::V1::Review::Request::BoundingBox
+* Yelp::V1::Review::Request::GeoPoint
+* Yelp::V1::Review::Request::Location
+* Yelp::V1::Phone::Request::Number
+* Yelp::V1::Neighborhood::Request::GeoPoint
+* Yelp::V1::Neighborhood::Request::Location
+* Yelp::V2::Business::Request::Id
+* Yelp::V2::Search::Request::BoundingBox
+* Yelp::V2::Search::Request::GeoPoint
+* Yelp::V2::Search::Request::Location
 
 By default, response content is formatted as a Ruby hash converted from Yelp's
 source JSON response content. Alternate response formats (including the
 original pure JSON) can be specified on request record construction via the
-Yelp::Request +response_format+ parameter, available in all request record
+Yelp::[V1/V2]::Request +response_format+ parameter, available in all request record
 types.
 
 A few examples:
@@ -76,7 +99,7 @@ A few examples:
  client = Yelp::Client.new
 
  # perform an address/location-based search for cream puffs nearby
- request = Yelp::Review::Request::Location.new(
+ request = Yelp::V1::Review::Request::Location.new(
              :address => '650 Mission St',
              :city => 'San Francisco',
              :state => 'CA',
@@ -86,7 +109,7 @@ A few examples:
  response = client.search(request)
 
  # perform a location-based category search for either ice cream or donut shops in SF
- request = Yelp::Review::Request::Location.new(
+ request = Yelp::V1::Review::Request::Location.new(
              :city => 'San Francisco',
              :state => 'CA',
              :category => [ 'donuts', 'icecream' ],
@@ -94,16 +117,71 @@ A few examples:
  response = client.search(request)
 
  # perform a neighborhood name lookup for a specific geo-location point
- request = Yelp::Neighborhood::Request::GeoPoint.new(
+ request = Yelp::V1::Neighborhood::Request::GeoPoint.new(
              :latitude => 37.782093,
              :longitude => -122.483230,
              :yws_id => 'YOUR_YWSID_HERE')
  response = client.search(request)
 
  # perform a business review search based on a business phone number
- request = Yelp::Phone::Request::Number.new(
+ request = Yelp::V1::Phone::Request::Number.new(
              :phone_number => '4155551212',
              :yws_id => 'YOUR_YWSID_HERE')
+ response = client.search(request)
+
+ # retrieve details of business vi yelp business id
+ request = Yelp::V2::Business::Request::Id.new(
+			:yelp_business_id => "pjb2WMwa0AfK3L-dWimO8w",
+			:consumer_key => ‘YOUR_CONSUMER_KEY’,
+			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
+			:token => ‘YOUR_TOKEN’,
+			:token_secret => ‘YOUR_TOKEN_SECRET’)
+ response = client.search(request)
+
+ # search for businesses via bounding box geo coords'
+ request = Yelp::V2::Search::Request::BoundingBox.new(
+			:term => "cream puffs",
+			:sw_latitude => 37.900000,
+			:sw_longitude => -122.500000,
+			:ne_latitude => 37.788022,
+			:ne_longitude => -122.399797,
+			:limit => 3,
+			:consumer_key => ‘YOUR_CONSUMER_KEY’,
+			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
+			:token => ‘YOUR_TOKEN’,
+			:token_secret => ‘YOUR_TOKEN_SECRET’)
+ response = client.search(request)
+
+ # search for businesses via lat/long geo point'
+ request = Yelp::V2::Search::Request::GeoPoint.new(
+			:term => "cream puffs",
+			:latitude => 37.788022,
+			:longitude => -122.399797,
+			:consumer_key => ‘YOUR_CONSUMER_KEY’,
+			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
+			:token => ‘YOUR_TOKEN’,
+			:token_secret => ‘YOUR_TOKEN_SECRET’)
+ response = client.search(request)
+
+ # search for businesses via location (address, neighbourhood, city, state, zip, country, latitude, longitude)'
+ request = Yelp::V2::Search::Request::Location.new(
+			:term => "cream puffs",
+			:city => "San Francisco",
+			:consumer_key => ‘YOUR_CONSUMER_KEY’,
+			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
+			:token => ‘YOUR_TOKEN’,
+			:token_secret => ‘YOUR_TOKEN_SECRET’)
+ response = client.search(request)
+
+ request = Yelp::V2::Search::Request::Location.new(
+			:term => "german food",
+			:address => "Hayes",
+			:latitude => 37.77493,
+			:longitude => -122.419415,
+			:consumer_key => ‘YOUR_CONSUMER_KEY’,
+			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
+			:token => ‘YOUR_TOKEN’,
+			:token_secret => ‘YOUR_TOKEN_SECRET’)
  response = client.search(request)
 
 If you want to convert some addresses to latitude/longitude, or vice
@@ -116,3 +194,6 @@ This library is provided via the GNU LGPL license at http://www.gnu.org/licenses
 == Authors
 
 Copyright 2007 - 2009, Walter Korman <shaper@fatgoose.com>, http://lemurware.blogspot.com
+
+2011 – Yelp V2 Additions by Naveed Siddiqui <naveed@10eighteen.com>
+

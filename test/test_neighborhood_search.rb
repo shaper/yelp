@@ -7,7 +7,7 @@ class TestNeighborhoodSearch < Test::Unit::TestCase
   include YelpHelper
 
   def setup
-    create_client
+    create_client YelpHelper::API_V1
   end
 
   GORDO_LAT = 37.782093
@@ -23,7 +23,7 @@ class TestNeighborhoodSearch < Test::Unit::TestCase
     "state_code" => "CA" }
 
   def test_geo_point_search
-    request = Yelp::Neighborhood::Request::GeoPoint.new(:latitude => GORDO_LAT,
+    request = Yelp::V1::Neighborhood::Request::GeoPoint.new(:latitude => GORDO_LAT,
                                                         :longitude => GORDO_LON,
                                                         :yws_id => @yws_id)
     response = @client.search(request)
@@ -34,7 +34,7 @@ class TestNeighborhoodSearch < Test::Unit::TestCase
   GORDO_ADDRESS = '2252 Clement Street'
 
   def test_location_search
-    request = Yelp::Neighborhood::Request::Location.new(:address => GORDO_ADDRESS,
+    request = Yelp::V1::Neighborhood::Request::Location.new(:address => GORDO_ADDRESS,
                                                         :city => 'San Francisco',
                                                         :state => 'CA',
                                                         :zipcode => 94121,
