@@ -1,22 +1,21 @@
 require 'rubygems'
 require 'hoe'
 $:.unshift(File.dirname(__FILE__) + "/lib")
-require 'yelp'
+require 'yelpster'
 
-Hoe.spec('yelp') do |p|
+Hoe.spec('yelpster') do |p|
   self.version = Yelp::VERSION
-  self.rubyforge_name = 'yelp'
-  self.author = 'Walter Korman, Naveed Siddiqui'
-  self.email = 'shaper@fatgoose.com, naveed@10eighteen.com'
+  self.rubyforge_name = 'yelpster'
+  self.author = 'Naveed Siddiqui'
+  self.email = 'naveed@10eighteen.com'
   self.extra_deps << [ 'json', '>= 1.1.1' ]
   self.summary = 'An object-oriented interface to the Yelp Developer API.'
   self.description = <<EDOC
-The yelp rubygem provides a Ruby object-oriented interface to the Yelp 
-REST API described in detail at:
+Extension of Korman's Ruby wrapper to interface with Yelp's REST API described in detail at:
 
 http://www.yelp.com/developers/getting_started
 EDOC
-  self.url = 'http://rubyforge.org/projects/yelp'
+  self.url = 'https://github.com/nvd/yelpster'
   self.changes = p.paragraphs_of('CHANGELOG.rdoc', 0..1).join("\n\n")
   self.remote_rdoc_dir = '' # Release to root
   self.readme_file = 'README.rdoc'

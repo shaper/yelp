@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'yelp'
+require 'yelpster'
 
 class TestClient < Test::Unit::TestCase
   def test_validation

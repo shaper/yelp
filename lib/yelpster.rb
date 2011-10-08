@@ -20,5 +20,5 @@ require 'yelp/v2/search/request/bounding_box'
 require 'yelp/v2/search/request/location'
 
 class Yelp
-  VERSION = '1.1.0'
+  VERSION = '0.3.8'
 end

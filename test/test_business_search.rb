@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'test/unit'
-require 'yelp'
+require 'yelpster'
 require File.dirname(__FILE__) + '/yelp_helper'
 
 class TestBusinessSearch < Test::Unit::TestCase
