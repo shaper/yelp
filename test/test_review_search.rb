@@ -1,17 +1,17 @@
 require 'rubygems'
 require 'test/unit'
-require 'yelp'
+require 'yelpster'
 require File.dirname(__FILE__) + '/yelp_helper'
 
 class TestReviewSearch < Test::Unit::TestCase
   include YelpHelper
 
   def setup
-    create_client
+    create_client YelpHelper::API_V1
   end
 
   def test_bounding_box
-    request = Yelp::Review::Request::BoundingBox.new(
+    request = Yelp::V1::Review::Request::BoundingBox.new(
                 :bottom_right_latitude => 37.788022,
                 :bottom_right_longitude => -122.399797,
                 :top_left_latitude => 37.9,
@@ -25,7 +25,7 @@ class TestReviewSearch < Test::Unit::TestCase
   end
 
   def test_geo_point
-    request = Yelp::Review::Request::GeoPoint.new(
+    request = Yelp::V1::Review::Request::GeoPoint.new(
                 :latitude => 37.78022,
                 :longitude => -122.399797,
                 :radius => 2,
@@ -37,7 +37,7 @@ class TestReviewSearch < Test::Unit::TestCase
   end
   
   def test_location
-    request = Yelp::Review::Request::Location.new(
+    request = Yelp::V1::Review::Request::Location.new(
                 :address => '650 Mission St',
                 :city => 'San Francisco',
                 :state => 'CA',
@@ -51,7 +51,7 @@ class TestReviewSearch < Test::Unit::TestCase
 
   def test_category
     # perform a basic search of businesses near SOMA
-    request = Yelp::Review::Request::GeoPoint.new(
+    request = Yelp::V1::Review::Request::GeoPoint.new(
                 :latitude => 37.78022,
                 :longitude => -122.399797,
                 :radius => 5,
@@ -60,7 +60,7 @@ class TestReviewSearch < Test::Unit::TestCase
     response = @client.search(request)
 
     # perform the same search focusing only on playgrounds
-    narrowed_request = Yelp::Review::Request::GeoPoint.new(
+    narrowed_request = Yelp::V1::Review::Request::GeoPoint.new(
                          :latitude => 37.78022,
                          :longitude => -122.399797,
                          :radius => 5,
@@ -117,7 +117,7 @@ class TestReviewSearch < Test::Unit::TestCase
       :yws_id => @yws_id,
       :category => 'donuts'
     }
-    request = Yelp::Review::Request::Location.new(params)
+    request = Yelp::V1::Review::Request::Location.new(params)
     response = @client.search(request)
 
     # make sure the overall request looks kosher
@@ -131,7 +131,7 @@ class TestReviewSearch < Test::Unit::TestCase
 
     # now fetch for businesses with two categories
     params[:category] = [ 'donuts', 'icecream' ]
-    request = Yelp::Review::Request::Location.new(params)
+    request = Yelp::V1::Review::Request::Location.new(params)
     response = @client.search(request)
 
     # make sure the overall request looks kosher
@@ -163,6 +163,6 @@ class TestReviewSearch < Test::Unit::TestCase
         :term => 'gordo',
         :yws_id => @yws_id
       }
-      Yelp::Review::Request::Location.new(default_params.merge(params))
+      Yelp::V1::Review::Request::Location.new(default_params.merge(params))
     end
 end
