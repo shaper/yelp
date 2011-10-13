@@ -1,4 +1,4 @@
-require 'yelp/v2/search/request/base'
+require 'yelpster/v2/search/request/base'
 
 class Yelp
   module V2

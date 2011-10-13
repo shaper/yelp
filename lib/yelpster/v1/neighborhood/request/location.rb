@@ -1,4 +1,4 @@
-require 'yelp/v1/neighborhood/request/base'
+require 'yelpster/v1/neighborhood/request/base'
 
 class Yelp
   module V1

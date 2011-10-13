@@ -1,3 +1,12 @@
+== YELP_20111013_1_1_1
+* [naveed] 
+	- updated Rakefile (removed hoe; added echoe for building)
+	- Renamed 'yelp.rb' to 'yelpster.rb'
+	- Renamed 'yelp' folder to 'yelpster'
+	- Updated references to files in lib
+	- test/yelp_helper.rb
+		> modified validate_json_response function regex to ^\{\"message\":\{\"text\":\"OK\",\"code\":0,\"version\":\"1\.1\.1\"\},\"(businesses|neighborhoods)\":.*?\}$
+
 == YELP_20110823_1_1_0
 
 * [naveed] New files added:

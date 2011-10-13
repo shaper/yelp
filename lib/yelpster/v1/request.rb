@@ -1,8 +1,9 @@
-require 'yelp/record'
-require 'oauth'
+require 'yelpster/record'
+require 'open-uri'
+require 'zlib'
 
 class Yelp
-  module V2
+  module V1
 	  class Request < Yelp::Record
 		# specifies whether the response content should be transmitted
 		# over the wire compressed, defaulting to true.
@@ -13,13 +14,10 @@ class Yelp
 		# Yelp::ResponseFormat::JSON_TO_RUBY.
 		attr_reader :response_format
 
-		# the Yelp consumer_key, consumer_secret, token, token_secret to be passed with the request for
-		# authentication purposes. See http://www.yelp.com/developers/getting_started/api_access
+		# the Yelp Web Services ID to be passed with the request for
+		# authentication purposes.  See http://www.yelp.com/developers/getting_started/api_access
 		# to get your own.
-		attr_reader :consumer_key
-		attr_reader :consumer_secret
-		attr_reader :token
-		attr_reader :token_secret
+		attr_reader :yws_id
 
 		alias :compress_response? :compress_response
 
@@ -32,24 +30,25 @@ class Yelp
 		end
 
 		def to_yelp_params
-		  params = {}
-		  
+		  params = {
+			:ywsid => yws_id
+		  }
+
 		  # if they specified anything other than a json variant, we
 		  # need to tell yelp what we're looking for
 		  case @response_format
 		  when Yelp::ResponseFormat::PICKLE 
-			params[:output] = 'pickle'
+			  params[:output] = 'pickle'
 		  when Yelp::ResponseFormat::PHP 
-			params[:output] = 'php'
+			  params[:output] = 'php'
 		  end
 
 		  params
 		end
-		
+
 		def pull_results (url, http_params)
-		  consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => "http://api.yelp.com"})
-		  access_token = OAuth::AccessToken.new(consumer, token, token_secret)
-		  access_token.get(url).body
+		  source = open(url, http_params)
+		  content = (compress_response?) ? Zlib::GzipReader.new(source).read : source.read
 		end
 	  end
    end

@@ -36,7 +36,7 @@ module YelpHelper
   def validate_json_response (response)
     assert_not_nil response
     assert_instance_of String, response
-    assert_match(/^\{"message": \{"text": "OK", "code": 0, "version": "1\.1\.1"\}, "(businesses|neighborhoods)": .*?\}$/, response)
+    assert_match(/^\{\"message\":\{\"text\":\"OK\",\"code\":0,\"version\":\"1\.1\.1\"\},\"(businesses|neighborhoods)\":.*?\}$/, response)
   end
 
   def validate_json_to_ruby_response (response)

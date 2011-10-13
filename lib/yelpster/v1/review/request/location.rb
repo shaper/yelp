@@ -1,4 +1,4 @@
-require 'yelp/v1/review/request/base'
+require 'yelpster/v1/review/request/base'
 
 class Yelp
   module V1

@@ -1,4 +1,4 @@
-require 'yelp/record'
+require 'yelpster/record'
 
 class Yelp
   # Describes the available response formats when querying the Yelp web

@@ -1,4 +1,4 @@
-require 'yelp/v1/request'
+require 'yelpster/v1/request'
 
 class Yelp
   module V1
