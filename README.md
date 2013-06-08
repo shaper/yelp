@@ -108,10 +108,10 @@ A few examples:
  # retrieve details of business vi yelp business id
  request = Yelp::V2::Business::Request::Id.new(
 			:yelp_business_id => "pjb2WMwa0AfK3L-dWimO8w",
-			:consumer_key => ‘YOUR_CONSUMER_KEY’,
-			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-			:token => ‘YOUR_TOKEN’,
-			:token_secret => ‘YOUR_TOKEN_SECRET’)
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  # search for businesses via bounding box geo coords'
@@ -122,10 +122,10 @@ A few examples:
 			:ne_latitude => 37.788022,
 			:ne_longitude => -122.399797,
 			:limit => 3,
-			:consumer_key => ‘YOUR_CONSUMER_KEY’,
-			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-			:token => ‘YOUR_TOKEN’,
-			:token_secret => ‘YOUR_TOKEN_SECRET’)
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  # search for businesses via lat/long geo point'
@@ -133,20 +133,20 @@ A few examples:
 			:term => "cream puffs",
 			:latitude => 37.788022,
 			:longitude => -122.399797,
-			:consumer_key => ‘YOUR_CONSUMER_KEY’,
-			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-			:token => ‘YOUR_TOKEN’,
-			:token_secret => ‘YOUR_TOKEN_SECRET’)
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  # search for businesses via location (address, neighbourhood, city, state, zip, country, latitude, longitude)'
  request = Yelp::V2::Search::Request::Location.new(
 			:term => "cream puffs",
 			:city => "San Francisco",
-			:consumer_key => ‘YOUR_CONSUMER_KEY’,
-			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-			:token => ‘YOUR_TOKEN’,
-			:token_secret => ‘YOUR_TOKEN_SECRET’)
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  request = Yelp::V2::Search::Request::Location.new(
@@ -154,10 +154,10 @@ A few examples:
 			:address => "Hayes",
 			:latitude => 37.77493,
 			:longitude => -122.419415,
-			:consumer_key => ‘YOUR_CONSUMER_KEY’,
-			:consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-			:token => ‘YOUR_TOKEN’,
-			:token_secret => ‘YOUR_TOKEN_SECRET’)
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 ```
 
