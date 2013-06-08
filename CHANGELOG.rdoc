@@ -1,3 +1,8 @@
+== YELPSTER_20130608_1_1_3
+* [naveed] Combine address components with ',' rather than space
+
+* [naveed] Refactor build_url
+
 == YELPSTER_20130429_1_1_2
 * [naveed] switched testing and deployment libraries
 
