@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.authors     = ['Naveed Siddiqui']
   s.license     = 'LGPL'
 
-  s.files         = Dir['CHANGELOG.rdoc', 'LICENSE.txt', 'README.rdoc', 'lib/**/*']
+  s.files         = Dir['CHANGELOG.rdoc', 'LICENSE.txt', 'README.md', 'lib/**/*']
   s.test_files    = Dir['spec/**/*.rb']
   s.require_paths = ['lib']
 
