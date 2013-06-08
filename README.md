@@ -1,4 +1,4 @@
-== Yelpster
+## Yelpster
 
 A Ruby object-oriented interface to the local business content available
 on Yelp at http://www.yelp.com.  Functionality is provided to perform
@@ -12,11 +12,11 @@ all searches available via the developer API including:
 
 More detailed information on the underlying Yelp API, error response codes, and so forth is available at http://www.yelp.com/developers/getting_started.
 
-The RubyForge project is hosted at http://rubyforge.org/projects/yelpster.  This documentation is available at http://yelpster.rubyforge.org.
+This documentation is available at http://rubydoc.info/github/nvd/yelpster.
 
 The latest source code is at http://github.com/nvd/yelpster.
 
-== Requirements
+## Requirements
 
 You must have a Yelp Web Service ID (YWSID) if you're using v1 of the api or Consumer Key, Consumer Secret, Token and a Token Secret for version 2. These are available at http://www.yelp.com/developers/getting_started/api_access.
 
@@ -25,20 +25,26 @@ retrieved via their API, documented at http://www.yelp.com/developers/getting_st
 
 For tests to execute successfully you must have the YWSID (for v1) or YELP_CONSUMER_KEY, YELP_CONSUMER_SECRET, YELP_TOKEN and YELP_TOKEN_SECRET(for v2) set in your environment via (shell-dependent, bash example provided):
 
+```console
  % export YWSID='YOUR_ID_HERE'
+```
 
 or
 
+```console
  % export YELP_CONSUMER_KEY='YOUR_CONSUMER_KEY_HERE'
  % export YELP_CONSUMER_SECRET='YOUR_CONSUMER_SECRET_HERE'
  % export YELP_PTOKEN='YOUR_TOKEN_HERE'
  % export YELPP_TOKEN_SECRET='YOUR_TOKEN_SECRET_HERE'
+```
 
-== Installing
+## Installing
 
+```console
  % gem install yelpster
+```
 
-== Usage
+## Usage
 
 Instantiate a Yelp::Client and use its +search+ method to make requests of
 the Yelp server.
@@ -64,6 +70,7 @@ types.
 
 A few examples:
 
+```ruby
  # construct a client instance
  client = Yelp::Client.new
 
@@ -100,68 +107,68 @@ A few examples:
 
  # retrieve details of business vi yelp business id
  request = Yelp::V2::Business::Request::Id.new(
-   :yelp_business_id => "pjb2WMwa0AfK3L-dWimO8w",
-   :consumer_key => ‘YOUR_CONSUMER_KEY’,
-   :consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-   :token => ‘YOUR_TOKEN’,
-   :token_secret => ‘YOUR_TOKEN_SECRET’)
+			:yelp_business_id => "pjb2WMwa0AfK3L-dWimO8w",
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  # search for businesses via bounding box geo coords'
  request = Yelp::V2::Search::Request::BoundingBox.new(
-   :term => "cream puffs",
-   :sw_latitude => 37.900000,
-   :sw_longitude => -122.500000,
-   :ne_latitude => 37.788022,
-   :ne_longitude => -122.399797,
-   :limit => 3,
-   :consumer_key => ‘YOUR_CONSUMER_KEY’,
-   :consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-   :token => ‘YOUR_TOKEN’,
-   :token_secret => ‘YOUR_TOKEN_SECRET’)
+			:term => "cream puffs",
+			:sw_latitude => 37.900000,
+			:sw_longitude => -122.500000,
+			:ne_latitude => 37.788022,
+			:ne_longitude => -122.399797,
+			:limit => 3,
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  # search for businesses via lat/long geo point'
  request = Yelp::V2::Search::Request::GeoPoint.new(
-   :term => "cream puffs",
-   :latitude => 37.788022,
-   :longitude => -122.399797,
-   :consumer_key => ‘YOUR_CONSUMER_KEY’,
-   :consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-   :token => ‘YOUR_TOKEN’,
-   :token_secret => ‘YOUR_TOKEN_SECRET’)
+			:term => "cream puffs",
+			:latitude => 37.788022,
+			:longitude => -122.399797,
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  # search for businesses via location (address, neighbourhood, city, state, zip, country, latitude, longitude)'
  request = Yelp::V2::Search::Request::Location.new(
-   :term => "cream puffs",
-   :city => "San Francisco",
-   :consumer_key => ‘YOUR_CONSUMER_KEY’,
-   :consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-   :token => ‘YOUR_TOKEN’,
-   :token_secret => ‘YOUR_TOKEN_SECRET’)
+			:term => "cream puffs",
+			:city => "San Francisco",
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
 
  request = Yelp::V2::Search::Request::Location.new(
-   :term => "german food",
-   :address => "Hayes",
-   :latitude => 37.77493,
-   :longitude => -122.419415,
-   :consumer_key => ‘YOUR_CONSUMER_KEY’,
-   :consumer_secret => ‘YOUR_CONSUMER_SECRET’,
-   :token => ‘YOUR_TOKEN’,
-   :token_secret => ‘YOUR_TOKEN_SECRET’)
+			:term => "german food",
+			:address => "Hayes",
+			:latitude => 37.77493,
+			:longitude => -122.419415,
+			:consumer_key => 'YOUR_CONSUMER_KEY',
+			:consumer_secret => 'YOUR_CONSUMER_SECRET',
+			:token => 'YOUR_TOKEN',
+			:token_secret => 'YOUR_TOKEN_SECRET')
  response = client.search(request)
-
+```
 
 If you want to convert some addresses to latitude/longitude, or vice
 versa, for testing or what have you -- try http://stevemorse.org/jcal/latlon.php.
 
-== License
+## License
 
 This library is provided via the GNU LGPL license at http://www.gnu.org/licenses/lgpl.html.
 
-== Authors
+## Authors
 
 Copyright 2007 - 2009, Walter Korman <shaper@fatgoose.com>, http://lemurware.blogspot.com
 

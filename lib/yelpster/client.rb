@@ -29,10 +29,10 @@ class Yelp
   class Client
     # allows specifying the user agent string to submit with search requests
     attr_accessor :agent
-    
+
     # whether debug mode is enabled for logging purposes, defaulting to false
     attr_accessor :debug
-    
+
     # the Logger compatible object with which log messages are outputted,
     # defaulting to output to STDOUT
     attr_accessor :logger
@@ -48,7 +48,7 @@ class Yelp
       @debug = false
       @logger = nil
     end
-    
+
     # Submits the supplied search request to Yelp and returns the response in
     # the format specified by the request.
     #
@@ -61,10 +61,10 @@ class Yelp
       debug_msg "submitting search [url=#{url}, request=#{request.to_yaml}]."
 
       # submit the http request for the results
-	    # http_request_params not used in v2 as OAuth (implemented in v2) only takes response params
-	    http_params = { 'User-Agent' => @agent }
-	    http_params['Accept-Encoding'] = 'gzip,deflate' if request.compress_response?
-	    content = request.pull_results(url, http_params)
+      # http_request_params not used in v2 as OAuth (implemented in v2) only takes response params
+      http_params = { 'User-Agent' => @agent }
+      http_params['Accept-Encoding'] = 'gzip,deflate' if request.compress_response?
+      content = request.pull_results(url, http_params)
 
       # read the response content
       debug_msg((request.response_format.serialized?) ? "received response [content_length=#{content.length}]." : "received response [content_length=#{content.length}, content=#{content}].")
@@ -75,31 +75,29 @@ class Yelp
 
     protected
 
-      def format_content (response_format, content)
-        (response_format == Yelp::ResponseFormat::JSON_TO_RUBY) ? JSON.parse(content) : content
-      end
+    def format_content (response_format, content)
+      (response_format == Yelp::ResponseFormat::JSON_TO_RUBY) ? JSON.parse(content) : content
+    end
 
-      def debug_msg (message)
-        return if !@debug
-        @logger = Logger.new(STDOUT) if (!@logger)
-        @logger.debug message
-      end
+    def debug_msg (message)
+      return if !@debug
+      @logger = Logger.new(STDOUT) if (!@logger)
+      @logger.debug message
+    end
 
-      def build_url (base_url, params)
-        url = base_url.clone
-		    unless params.nil?
-			    url << '?'
-			    param_count = 0
-			    params.each do |key, value|
-			      next if value.nil?
-			      url << '&' if (param_count > 0)
-			      key_str = (params[key].kind_of?(Array)) ? 
-				    params[key].map { |k| CGI.escape(k.to_s) }.join("+") : CGI.escape(params[key].to_s)
-			      url << "#{CGI.escape(key.to_s)}=#{key_str}"
-			      param_count += 1
-			    end
-		    end
-        url
-      end
+    def build_url (base_url, params)
+      "#{base_url}?#{to_query_string(params)}"
+    end
+
+    def to_query_string(params)
+      params.delete_if { |_, v| v.nil? }
+            .to_a
+            .map { |key, value| "#{escape(key)}=#{escape(value)}" }
+            .join('&')
+    end
+
+    def escape(object)
+      object.kind_of?(Array) ? object.map { |v| CGI.escape(v.to_s) }.join('+') : CGI.escape(object.to_s)
+    end
   end
 end
