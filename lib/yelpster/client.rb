@@ -86,20 +86,18 @@ class Yelp
     end
 
     def build_url (base_url, params)
-      url = base_url.clone
-      unless params.nil?
-        url << '?'
-        param_count = 0
-        params.each do |key, value|
-          next if value.nil?
-          url << '&' if (param_count > 0)
-          key_str = (params[key].kind_of?(Array)) ? 
-            params[key].map { |k| CGI.escape(k.to_s) }.join("+") : CGI.escape(params[key].to_s)
-          url << "#{CGI.escape(key.to_s)}=#{key_str}"
-          param_count += 1
-        end
-      end
-      url
+      "#{base_url}?#{to_query_string(params)}"
+    end
+
+    def to_query_string(params)
+      params.delete_if { |_, v| v.nil? }
+            .to_a
+            .map { |key, value| "#{escape(key)}=#{escape(value)}" }
+            .join('&')
+    end
+
+    def escape(object)
+      object.kind_of?(Array) ? object.map { |v| CGI.escape(v.to_s) }.join('+') : CGI.escape(object.to_s)
     end
   end
 end
