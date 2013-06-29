@@ -18,7 +18,3 @@ require 'yelpster/v2/search/request/base'
 require 'yelpster/v2/search/request/geo_point'
 require 'yelpster/v2/search/request/bounding_box'
 require 'yelpster/v2/search/request/location'
-
-  VERSION = '1.1.3'
-module Yelp
-end
