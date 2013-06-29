@@ -90,10 +90,10 @@ module Yelp
     end
 
     def to_query_string(params)
-      params.delete_if { |_, v| v.nil? }
-            .to_a
-            .map { |key, value| "#{escape(key)}=#{escape(value)}" }
-            .join('&')
+      params.delete_if { |_, v| v.nil? }.
+             to_a.
+             map { |key, value| "#{escape(key)}=#{escape(value)}" }.
+             join('&')
     end
 
     def escape(object)
