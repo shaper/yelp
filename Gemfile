@@ -10,3 +10,7 @@ gem "rdoc"
 group :test do
   gem "rspec", "~> 2.13"
 end
+
+group :development do
+  gem "travis"
+end

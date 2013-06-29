@@ -1,0 +1,37 @@
+---
+language: ruby
+rvm:
+- 1.8.7
+- 1.9.2
+- 1.9.3
+- jruby-18mode
+- jruby-19mode
+- rbx-18mode
+- rbx-19mode
+env:
+  global:
+  - secure: ! 'BjiNYdHeN94GDMAF4/EaPUMDX+59f04r8TWCJP5y7QDWyVgY3qqZ6BlvhQWW
+
+      WtUQqKpwmySRUcdAzSABbdZIrja0zVOqrwPl69+3VZyRpX4Msf9O19/OV0Oj
+
+      2hdjp9PSAiJlkqyEPI4bwqMsuXdu9f1BN2cAYmwF34P/KIFlB/Y='
+  - secure: ! 'UBeGJPEbbCfRToB1Vspe/yuSYvxWbzqO327rP4JK7ABEFCWyHyJYGwluws3j
+
+      Oeh1DbauvpAa5USZ3Wk0zNU3EIfw/g2ILTDbn+RsI0jbkMD0xTJIcxEP9wKX
+
+      MIx7EkaLlOPxKA6maPjgnmzVl9qMpl3IJUfqPYRwpa6Hg9/Vhjc='
+  - secure: ! 'Z1F+zZsBFYmsTpp8Dc3oB0zEoQtOZDoZZpuKYGEDKokzF0bX/KEa/6jlNoJ0
+
+      wBjZXGfAr6OlYtpTbKa7gAEfTEO/xEqyUwq3rFFY/hH4+CoyHvfSsrhZrmvM
+
+      NjdbGTR4Hqf7gITrdwcJZFJzoEjotDll/YfR4yXPaodggo3nqB8='
+  - secure: ! 'Cnk6Xje3sRHHYMKZnftg9s9Pnh9cifX83ef1A4Dj23PJtPAJ3kdvCu4BJeNe
+
+      4O+QvJGa1LEp9zL5uaSdyNk6kinzDeEs8VriCqTENMdnJfya30mgoGGALSbD
+
+      z8rmJb2hBmMm9Y3bq58Pr7oZoOaCdPBsXBbyAk1snDmTsEp5hmk='
+  - secure: ! 'L+MS5pSYs+JSh2L9hEEQ8mJubce8dqC77/heMFLJoeQDfMxLgjh5tnoVpsID
+
+      iyHnO79RyDjjunZchYTKLSA0kdXaIcLrrFHmYnPXVx06yKQAoMaPYfGWqWuc
+
+      h0QBR5adQ3XBoVnlx+z+IjSFu44wQYGACHq+JzVRXZcpUeCR2y8='

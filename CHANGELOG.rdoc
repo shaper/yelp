@@ -1,3 +1,12 @@
+== YELPSTER_20130629_1_1_4
+* [naveed] Convert Yelp to a module
+
+* [naveed] Make lib ruby v1.8 compatible
+
+* [naveed] Add rdoc task
+
+* [naveed] Add Travis CI
+
 == YELPSTER_20130608_1_1_3
 * [naveed] Combine address components with ',' rather than space
 

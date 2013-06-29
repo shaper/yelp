@@ -4,7 +4,7 @@ require 'rubygems'
 require 'json'
 require 'yaml'
 
-class Yelp
+module Yelp
   # Provides access to the Yelp search facilities as documented at:
   #
   # http://www.yelp.com/developers/documentation
@@ -64,6 +64,7 @@ class Yelp
       # http_request_params not used in v2 as OAuth (implemented in v2) only takes response params
       http_params = { 'User-Agent' => @agent }
       http_params['Accept-Encoding'] = 'gzip,deflate' if request.compress_response?
+      http_params[:proxy] = nil
       content = request.pull_results(url, http_params)
 
       # read the response content
@@ -90,10 +91,10 @@ class Yelp
     end
 
     def to_query_string(params)
-      params.delete_if { |_, v| v.nil? }
-            .to_a
-            .map { |key, value| "#{escape(key)}=#{escape(value)}" }
-            .join('&')
+      params.delete_if { |_, v| v.nil? }.
+             to_a.
+             map { |key, value| "#{escape(key)}=#{escape(value)}" }.
+             join('&')
     end
 
     def escape(object)
