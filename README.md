@@ -1,6 +1,7 @@
 ## Yelpster
 
 [![Build Status](https://travis-ci.org/nvd/yelpster.png?branch=develop)](https://travis-ci.org/nvd/yelpster)
+[![Dependency Status](https://gemnasium.com/nvd/yelpster.png)](https://gemnasium.com/nvd/yelpster)
 
 A Ruby object-oriented interface to the local business content available
 on Yelp at http://www.yelp.com.  Functionality is provided to perform
