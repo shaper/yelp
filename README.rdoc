@@ -116,3 +116,7 @@ This library is provided via the GNU LGPL license at http://www.gnu.org/licenses
 == Authors
 
 Copyright 2007 - 2009, Walter Korman <shaper@fatgoose.com>, http://lemurware.blogspot.com
+
+== API Testing
+
+RapidAPI: https://rapidapi.com/package/YelpAPI/functions?utm_source=YelpGithub&utm_medium=button&utm_content=Vender_GitHub
